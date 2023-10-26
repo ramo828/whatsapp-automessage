@@ -1,0 +1,13 @@
+[package]
+name = "autest"
+version = "0.3.2"
+edition = "2021"
+authors = ["Ramiz Mammadli <ramosoft94@gmsil.com>"]
+
+[dependencies]
+libudev-sys = "0.1.4"
+libs = { path = "libs" }
+
+[[bin]]
+name = "main"
+path = "main.rs"
