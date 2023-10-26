@@ -101,13 +101,10 @@ pub fn enter() {
 }
 #[allow(dead_code)]
 
-pub fn step(step_num: i32) {
+pub fn step() {
 	let mut step_dev =key_device("step");
-
-	for _i in 1..=step_num {
-		sleep_ms(200);
-		step_dev.click(&keyboard::Key::Down).unwrap();
-    }
+    sleep_ms(200);
+    step_dev.click(&keyboard::Key::Down).unwrap();
 	step_dev.synchronize().unwrap();
 
 }
