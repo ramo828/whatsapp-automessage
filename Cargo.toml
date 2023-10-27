@@ -6,6 +6,12 @@ authors = ["Ramiz Mammadli <ramosoft94@gmsil.com>"]
 
 [dependencies]
 libs = { path = "libs" }
+actix-web = "4.4.0"
+actix-rt = "2.9.0"
+tera = "1.19.1"
+env_logger = "0.10"        # Kullanmak istediğiniz sürümü belirtin
+
+
 
 [[bin]]
 name = "main"

@@ -3,6 +3,19 @@ extern crate uinput;
 use uinput::event::keyboard;
 use std::thread;
 use std::time::Duration;
+use std::process::Command;
+
+#[allow(dead_code)]
+
+pub fn system(command: &str) -> String {
+    let output = Command::new(command)
+        .output()
+        .expect("Komut çalıştırılamadı");
+
+    String::from_utf8_lossy(&output.stdout).to_string()
+
+}
+
 
 #[allow(dead_code)]
 pub fn simulate_typing(text: &str) {
