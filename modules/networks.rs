@@ -2,11 +2,13 @@ use actix_web::{web, App, HttpResponse, HttpServer, Responder};
 use tera::{Tera, Context};
 use std::sync::Mutex;
 
+#[warn(dead_code)]
 async fn print_me() -> impl Responder {
     std::println!("Hello");
     HttpResponse::Ok().body("OK")
 }
 
+#[warn(dead_code)]
 async fn index(tmpl: web::Data<Mutex<Tera>>) -> impl Responder {
     let tera = tmpl.lock().unwrap();
     // Şablon için verileri belirleyin
@@ -21,10 +23,10 @@ async fn index(tmpl: web::Data<Mutex<Tera>>) -> impl Responder {
 }
 
 #[actix_rt::main]
-pub async fn initServer(serv: &str, port: &str) -> std::io::Result<()> {
+pub async fn init_server(serv: &str, port: &str) -> std::io::Result<()> {
     let tera = Tera::new("templates/**/*").unwrap();
     let tera = web::Data::new(Mutex::new(tera));
-
+    std::println!("Server: {}",format!("{}:{}", serv, port));
     HttpServer::new(move || { // 'move' anahtar kelimesi ekleniyor
         App::new()
             .app_data(tera.clone())  // Data extractor'ü yapılandırın
