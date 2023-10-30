@@ -1,9 +1,28 @@
 extern crate uinput;
+extern crate mouse_keyboard_input;
 
 use uinput::event::keyboard;
 use std::thread;
 use std::time::Duration;
 use std::process::Command;
+use mouse_keyboard_input::VirtualDevice;
+use mouse_keyboard_input::key_codes::*;
+
+
+
+pub fn scroll(max: i32, speed: u64) {
+	let channel_size = 1024;
+	let writing_interval = Duration::from_secs(1);
+	let mut device_result = VirtualDevice::new(writing_interval, channel_size);
+	thread::sleep(Duration::from_secs(10));
+
+	for _ in 1..max {
+		thread::sleep(Duration::from_millis(speed));
+		let mut device = device_result.as_mut().expect("Hata nedeni");
+
+		device.scroll_y(100);
+	}
+}
 
 #[allow(dead_code)]
 
@@ -92,14 +111,31 @@ pub fn key_device(name: &str) -> uinput::Device {
 }
 #[allow(dead_code)]
 
-pub fn ctrl_t() {
-	let mut ctrlt =key_device("ctrl_t");
+pub fn ctrl_alt_n() {
+	let mut ctrlt =key_device("ctrl_alt_n");
 	sleep_ms(200);
 	ctrlt.press(&keyboard::Key::LeftControl).unwrap();
-	ctrlt.press(&keyboard::Key::T).unwrap();
+	ctrlt.press(&keyboard::Key::LeftAlt).unwrap();
+	ctrlt.press(&keyboard::Key::N).unwrap();
 
 	ctrlt.release(&keyboard::Key::LeftControl).unwrap();
-	ctrlt.release(&keyboard::Key::T).unwrap();
+	ctrlt.release(&keyboard::Key::LeftAlt).unwrap();
+	ctrlt.release(&keyboard::Key::N).unwrap();
+	ctrlt.synchronize().unwrap();
+
+}
+#[allow(dead_code)]
+
+pub fn ctrl_alt_p() {
+	let mut ctrlt =key_device("ctrl_alt_[]");
+	sleep_ms(200);
+	ctrlt.press(&keyboard::Key::LeftControl).unwrap();
+	ctrlt.press(&keyboard::Key::LeftAlt).unwrap();
+	ctrlt.press(&keyboard::Key::P).unwrap();
+
+	ctrlt.release(&keyboard::Key::LeftControl).unwrap();
+	ctrlt.release(&keyboard::Key::LeftAlt).unwrap();
+	ctrlt.release(&keyboard::Key::P).unwrap();
 	ctrlt.synchronize().unwrap();
 
 }
@@ -110,14 +146,26 @@ pub fn enter() {
 	sleep_ms(200);
 	etab.click(&keyboard::Key::Enter).unwrap();
 	etab.synchronize().unwrap();
+}
 
+pub fn Tab() {
+	let mut etab =key_device("tab");
+	sleep_ms(200);
+	etab.click(&keyboard::Key::Tab).unwrap();
+	etab.synchronize().unwrap();
 }
 #[allow(dead_code)]
 
 pub fn step() {
-	let mut step_dev =key_device("step");
+	let mut step_dev = VirtualDevice::new(Duration::from_millis(500), 1024).unwrap();
+	// device.click(KEY_DOWN).unwrap();
+
+
+
+
+	// let mut step_dev =key_device("step");
     sleep_ms(200);
-    step_dev.click(&keyboard::Key::Down).unwrap();
+    step_dev.click(KEY_DOWN).unwrap();
 	step_dev.synchronize().unwrap();
 
 }

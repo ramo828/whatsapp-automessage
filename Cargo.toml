@@ -11,14 +11,11 @@ actix-rt = "2.9.0"
 tera = "1.19.1"
 env_logger = "0.10"        # Kullanmak istediğiniz sürümü belirtin
 anyhow = "1.0.75"
-#tesseract = "0.15.0"
 leptess = "0.14.0" 
 opencv = "0.80.0"          #OpenCV sürümünü uygun bir şekilde belirtin
-#leptonica-sys = "0.4.6"
-
-
-
-
+leptonica-sys = "0.4.6"
+thirtyfour = "0.31.0"
+tokio = "1.33.0"
 
 
 [[bin]]
